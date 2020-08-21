@@ -1,0 +1,44 @@
+Tasks description:
+We need to create app
+1- create register then login form With nice design Feel free to use any open source you have
+2- after login will find 3 section
+3- each section contain video & quiz when he watch the video if open the video it will give 5
+points & if finish it will give 10 points
++ if quiz correct answer it will give him extra 10 points
+Notification system preferred pusher
+Optional : Create Video Call Between Any 2 users on the System
+Need the api documentation &clean code
+Need the dashboard for scores of the users
++ responsive user interface
+Ability to export Excel Sheet From the DashBoard
+================================================================
+Auth: register/login (web)
+Auth: login (dashboard)
+
+Web =>
+1. each user will have 3 tests
+each test has a video and questions
+starting the video grants 5 points
+finishing the video grants another 5 points (10 so far)
+answering the quiz correctly grants another 10.
+
+2. after finishing the test there should be a notification sent to the dashboard using pusher.
+
+3. (Optional) any 2 users can call each other for some reason.
+
+DashBoard =>
+1. CRUD users.
+2. Scores page with Excel export.
+3. Notification view.
+================================================================
+users
+roles & permissions
+tests => [
+    video,
+    questions
+]
+questions: multiple choice ? => [
+    question,
+    answer,
+    answers: json text ?
+]
