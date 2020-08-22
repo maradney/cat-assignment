@@ -30,8 +30,8 @@ class ExamsTableSeeder extends Seeder
                 'created_at' => $now->toDateTimeString(),
             ],
             [
-                'name' => "Tyson's Arching Uppercuts & Leaping Hooks Explained - Technique Breakdown",
-                'video' => "TechniqueBreakdown.mp4",
+                'name' => "MIKE TYSON NEW EXPLOSIVE TRAINING VIDEO",
+                'video' => "MIKETYSON.mp4",
                 'video_thumbnail' => 'Tyson.png',
                 'created_at' => $now->toDateTimeString(),
             ],
