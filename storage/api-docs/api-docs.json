@@ -1,0 +1,91 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "L5 OpenApi",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "maradney.dev@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/answers/{exam}": {
+            "post": {
+                "tags": [
+                    "Exams"
+                ],
+                "summary": "Submit exam asnswers.",
+                "description": "Post user's answers to a specific exam.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Exam id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "videoStarted",
+                                    "videoFinished",
+                                    "answers"
+                                ],
+                                "properties": {
+                                    "videoStarted": {
+                                        "type": "boolean"
+                                    },
+                                    "videoFinished": {
+                                        "type": "boolean"
+                                    },
+                                    "answers": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": [
+                                                    "question id",
+                                                    "answer"
+                                                ]
+                                            }
+                                        },
+                                        "example": "[ [ id: question id, answer: answer ] ]"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success message"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthenticted"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Freelancer - Start Bootstrap Theme</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="{{ asset('web/assets/img/favicon.ico') }}" />
@@ -18,10 +19,44 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('web/css/styles.css') }}" rel="stylesheet" />
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <style>
+    .spinner-container {
+        position: fixed;
+        background-color: #0009;
+        width: 100%;
+        height: 110%;
+        z-index: 10000;
+        top: 0;
+    }
+
+    @keyframes spinner {
+        to {transform: rotate(360deg);}
+    }
+    .spinner {
+        content: '';
+        box-sizing: border-box;
+        position: relative;
+        top: 37%;
+        left: 46%;
+        height: 150px;
+        width: 150px;
+        margin-top: -15px;
+        margin-left: -15px;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+        border-top-color: #07d;
+        animation: spinner .6s linear infinite;
+    }
+    a {
+        cursor: pointer;
+        cursor: hand;
+    }
+    </style>
 </head>
 
 <body id="page-top">
     <div id="app">
+        <div class="spinner-container" v-show="loading_screen" style="display:none;"><div class="spinner"></div></div>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
@@ -35,13 +70,23 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
+                        @if(auth()->user())
+                        <li class="nav-item mx-0 mx-lg-1">
+                            {!! Form::open(['route' => 'logout', 'id' => 'logout-form']) !!}
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#" onclick="document.getElementById('logout-form').submit();">Logout</a>
+                            {!! Form::close() !!}
+                        </li>
+                        @else
                         <li class="nav-item mx-0 mx-lg-1">
                             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{ route('login') }}">Login</a>
                         </li>
                         <li class="nav-item mx-0 mx-lg-1">
                             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{ route('register') }}">Register</a>
                         </li>
-                        @yield('nav-links')
+                        @endif
+                        <li class="nav-item mx-0 mx-lg-1">
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{ route('index') }}">Exams</a>
+                        </li>
                         <li class="nav-item mx-0 mx-lg-1">
                             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">About</a>
                         </li>
@@ -56,7 +101,7 @@
                 <img class="masthead-avatar mb-5" src="{{ asset('web/assets/img/avataaars.svg') }}" alt="" />
                 <!-- Masthead Heading-->
                 <h1 class="masthead-heading text-uppercase mb-0">
-                    Hello guest!
+                    Hello {{ auth()->user() ? auth()->user()->name : 'Guest' }}!
                 </h1>
                 <!-- Icon Divider-->
                 <div class="divider-custom divider-light">
@@ -72,7 +117,7 @@
                 </p>
             </div>
         </header>
-        
+
         @yield('content')
 
         <!-- About Section-->
@@ -171,6 +216,8 @@
                     class="fa fa-chevron-up"></i></a>
         </div>
     </div>
+    <!-- <script type="text/javascript" src="{{ asset('dashboard/vendor/sweetalert.min.js') }}"></script>
+    @include('sweetalert') -->
     <!-- Bootstrap core JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
@@ -183,6 +230,7 @@
     <script src="{{ asset('web/assets/mail/contact_me.js') }}"></script>
     <!-- Core theme JS-->
     <script src="{{ asset('web/js/scripts.js') }}"></script>
+    @yield('scripts')
 </body>
 
 </html>

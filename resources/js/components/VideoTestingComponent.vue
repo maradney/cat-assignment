@@ -11,6 +11,7 @@
 
 <script>
 export default {
+  props: ["examvideourl", "watchingVideo", "finishedVideo"],
   data() {
     return {
       playerOptions: {
@@ -20,17 +21,19 @@ export default {
         sources: [
           {
             type: "video/mp4",
-            src:
-              "/videos/[ThePruld] Im into the abyss.mp4",
+            src: this.examvideourl,
           },
         ],
         // poster: "/static/images/author.jpg",
       },
     };
   },
-  mounted() {
-    // console.log("This is current player instance object", this.player);
+  created() {
+    Event.$on("stop-video", () => {
+      this.player.pause();
+    });
   },
+  mounted() {},
   computed: {
     player() {
       return this.$refs.videoPlayer.player;
@@ -39,10 +42,10 @@ export default {
   methods: {
     // listen event
     onPlayerPlay(player) {
-      console.log("player play!");
+      this.watchingVideo();
     },
     onPlayerEnded(player) {
-      console.log('player ended!')
+      this.finishedVideo();
     },
   },
 };

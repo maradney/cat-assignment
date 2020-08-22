@@ -10,4 +10,12 @@ class Question extends Model
         'question', 'answer',
         'answers', // json text
     ];
+
+    /**
+     * Accessors & Mutators
+     */
+    public function getAnswersAttribute()
+    {
+        return json_decode($this->attributes['answers'], true);
+    }
 }
