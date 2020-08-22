@@ -18,6 +18,7 @@
 - Access api documentation on `/api/documentation`
 - Admin user is: allMight@app.com, password: 123456
 - Access dashboard on `/control-panel`
+- This project was developed with Firefox browser and wasn't thoroughly tested on Chrome.
 
 ## Notes
 Project focus is speed and showing off (not security, UX, UI ..etc) but I tried my best anyway.
